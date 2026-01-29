@@ -7,7 +7,7 @@ Type=simple
 User=ubuntu
 WorkingDirectory=/opt/douyin-downloader
 Environment="DOUYIN_COOKIE=msToken=...; ttwid=...; odin_tt=...;"
-ExecStart=/usr/bin/python3 -m uvicorn api_server:app --host 0.0.0.0 --port 8000
+ExecStart=/opt/douyin-downloader/.venv/bin/python -m uvicorn api_server:app --host 0.0.0.0 --port 8000
 Restart=always
 RestartSec=3
 
