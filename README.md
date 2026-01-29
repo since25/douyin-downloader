@@ -224,6 +224,31 @@ python downloader.py [选项] [链接...]
   -h, --help            显示帮助信息
 ```
 
+## 🌐 API 服务模式（适合 Ubuntu 常驻监听）
+
+该项目默认是 CLI 工具，不自带常驻服务。仓库内提供了一个轻量 API 包装（`api_server.py`），便于在 Ubuntu 上常驻运行并通过 HTTP 提交链接。
+
+### 启动服务
+```bash
+uvicorn api_server:app --host 0.0.0.0 --port 8000
+```
+
+### 提交下载任务
+```bash
+curl -X POST http://127.0.0.1:8000/api/download \
+  -H "Content-Type: application/json" \
+  -d '{"text":"分享文案含链接","auto_cookie":false}'
+```
+
+### 查询任务状态
+```bash
+curl http://127.0.0.1:8000/api/jobs
+curl http://127.0.0.1:8000/api/jobs/<job_id>
+```
+
+### systemd 常驻示例
+仓库已提供样例文件：`deploy/douyin-downloader-api.service`
+
 ## 🍪 Cookie 配置工具
 
 ### 1. cookie_extractor.py - 自动获取工具

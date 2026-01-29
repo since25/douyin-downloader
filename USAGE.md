@@ -34,6 +34,27 @@ python downloader.py -u "https://www.douyin.com/user/xxxxx"
 python downloader.py --auto-cookie -u "https://www.douyin.com/user/xxxxx"
 ```
 
+## 🌐 API 服务模式（Ubuntu 常驻）
+
+启动：
+```bash
+uvicorn api_server:app --host 0.0.0.0 --port 8000
+```
+
+提交下载任务：
+```bash
+curl -X POST http://127.0.0.1:8000/api/download \
+  -H "Content-Type: application/json" \
+  -d '{"text":"分享文案含链接","auto_cookie":false}'
+```
+
+查询任务：
+```bash
+curl http://127.0.0.1:8000/api/jobs
+```
+
+systemd 示例：`deploy/douyin-downloader-api.service`
+
 ## 📋 版本对比
 
 | 功能 | V1.0 (DouYinCommand.py) | V2.0 (downloader.py) |
