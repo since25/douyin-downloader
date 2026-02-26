@@ -58,7 +58,8 @@ class BaseDownloader(ABC):
         self.file_manager = file_manager
         self.cookie_manager = cookie_manager
         self.database = database
-        self.rate_limiter = rate_limiter or RateLimiter()
+        rate_limit_val = float(self.config.get("rate_limit", 2.0) or 2.0)
+        self.rate_limiter = rate_limiter or RateLimiter(max_per_second=rate_limit_val)
         self.retry_handler = retry_handler or RetryHandler()
         thread_count = int(self.config.get("thread", 5) or 5)
         self.queue_manager = queue_manager or QueueManager(max_workers=thread_count)

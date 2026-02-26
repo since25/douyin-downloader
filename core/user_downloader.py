@@ -125,6 +125,9 @@ class UserDownloader(BaseDownloader):
                 self._progress_advance_item("skipped", str(aweme_id or "unknown"))
                 return {"status": "skipped", "aweme_id": aweme_id}
 
+            # 注入流控，确保资源下载也遵循频率限制
+            await self.rate_limiter.acquire()
+
             success = await self._download_aweme_assets(item, author_name, mode="post")
             status = "success" if success else "failed"
             self._progress_advance_item(status, str(aweme_id or "unknown"))

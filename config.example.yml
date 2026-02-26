@@ -31,6 +31,8 @@ increase:
   music: false
 
 thread: 5
+# 每秒最大请求数 (流控)。例如 0.2 表示每 5 秒一个请求，2.0 表示每秒 2 个请求。建议服务器挂机设为 0.2-0.5
+rate_limit: 2.0
 retry_times: 3
 database: true
 
